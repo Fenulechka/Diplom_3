@@ -1,5 +1,4 @@
 import allure
-import time
 
 from locators.main_page_locators import MainPageLocators
 from locators.order_feed_page_locators import OrderFeedPageLocators
@@ -69,7 +68,7 @@ class TestOrderFeed:
         new_order_number = f"0{order_page.get_new_order_number()}"
         order_page.close_modal_window()
         main_page.go_to_order_feed()
-        time.sleep(3)
+        order_page.wait_for_status_text_to_disappear()
         counter_after = order_page.get_order_id_in_progress_list()
         assert new_order_number == counter_after
 

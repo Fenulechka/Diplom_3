@@ -1,6 +1,7 @@
 import allure
 
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from locators.main_page_locators import MainPageLocators
 from locators.order_feed_page_locators import OrderFeedPageLocators
 from pages.base_page import BasePage
@@ -28,13 +29,22 @@ class OrderFeedPage(BasePage):
     @allure.step("Получить номера заказов из Ленты заказов")
     def find_orders_list(self):
         orders_section = self.get_element_text(OrderFeedPageLocators.ORDER_FEED_LIST)
-        raw_order_numbers = [
-            line.strip() for line in orders_section.splitlines() if line.startswith('#')
+        normalized_orders = [
+            line.strip().lstrip('#').strip()
+            for line in orders_section.splitlines()
+            if line.startswith('#')
         ]
-        normalized_orders = [number.lstrip('#').strip() for number in raw_order_numbers]
         return normalized_orders
 
-    @allure.step("Кликнуть на 'Конструктор'")
+    @allure.step("Кликнуть на Конструктор")
     def click_constructor(self):
         self.click_element(MainPageLocators.CONSTRUCTOR_BUTTON)
         self.wait_for_element(MainPageLocators.CONSTRUCTOR_DROP_AREA)
+
+    @allure.step("Ждем пока исчезнет текст Все текущие заказы готовы!")
+    def wait_for_status_text_to_disappear(self, timeout=10):
+        WebDriverWait(self.driver, timeout).until_not(
+            EC.text_to_be_present_in_element(
+                OrderFeedPageLocators.STATUS_READY_TEXT,
+                "Все текущие заказы готовы!")
+            )

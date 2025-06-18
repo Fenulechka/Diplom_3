@@ -10,6 +10,7 @@ class OrderFeedPageLocators:
     MODAL_CLOSE_ORDER = (By.XPATH, "//button//*[local-name()='svg' and @width='24' and @height='24' and @fill='#F2F2F3']")
     # В работе
     ORDERS_AT_WORK = (By.CSS_SELECTOR, "ul.OrderFeed_orderListReady__1YFem")
+    STATUS_READY_TEXT = (By.XPATH, "//li[@class='text text_type_main-small' and contains(text(), 'Все текущие заказы готовы!')]")
     # Основной контейнер списка заказов Готовы:
     ORDER_FEED_ORDER_LIST = (By.CSS_SELECTOR, ".OrderFeed_orderList__cBvyi")
     # Основной контейнер списка заказов
