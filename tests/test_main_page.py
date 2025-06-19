@@ -1,5 +1,6 @@
 import allure
 
+from data import TextDate
 from pages.main_page import MainPage
 from locators.main_page_locators import MainPageLocators
 from urls import BASE_URL
@@ -18,7 +19,7 @@ class TestMainPage:
     def test_go_to_order_feed(self, driver):
         main_page = MainPage(driver)
         main_page.click_order_feed()
-        assert "feed" in main_page.get_current_url()
+        assert TextDate.TEXT_ORDER in main_page.get_current_url()
 
     @allure.title("Открытие модального окна с деталями ингредиента")
     def test_open_ingredient_modal(self, driver):

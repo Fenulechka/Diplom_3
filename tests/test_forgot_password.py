@@ -1,6 +1,6 @@
 import allure
 
-from data import Date
+from data import Date, TextDate
 from pages.forgot_password_page import ForgotPasswordPage
 from pages.main_page import MainPage
 from pages.login_page import LoginPage
@@ -15,7 +15,7 @@ class TestForgotPassword:
         login_page.go_to_forgot_password_page()
         forgot_password_page = ForgotPasswordPage(driver)
         current_url = forgot_password_page.get_current_url()
-        assert "forgot-password" in current_url
+        assert TextDate.TEXT_FORGOT_PASSWORD in current_url
 
     @allure.title("Тест проверки ввода почты и клик по кнопке Восстановить")
     def test_restore_password(self, driver):
@@ -27,7 +27,7 @@ class TestForgotPassword:
         reset_password_page = forgot_password_page.restore_password(Date.test_email)
         reset_password_page.toggle_password_visibility()
         current_url = reset_password_page.get_current_url()
-        assert "reset-password" in current_url
+        assert TextDate.TEXT_RESET_PASSWORD in current_url
 
     @allure.title("Тест проверки подсветки поля пароля при клике на иконку глаза")
     def test_toggle_password_visibility(self, driver):

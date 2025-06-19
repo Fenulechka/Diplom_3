@@ -59,3 +59,7 @@ class BasePage:
     def wait_and_find_element(self, locator):
         WebDriverWait(self.driver, 5).until(expected_conditions.visibility_of_element_located(locator))
         return self.driver.find_element(*locator)
+
+    @allure.step("Ждем пока указанный текст перестанет отображаться в элементе")
+    def wait_until_text_is_not_visible(self, locator, text, timeout=10):
+        WebDriverWait(self.driver, timeout).until_not(EC.text_to_be_present_in_element(locator, text))

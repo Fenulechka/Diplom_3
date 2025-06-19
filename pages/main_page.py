@@ -1,7 +1,6 @@
 import allure
 
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
+
 from locators.login_page_locators import LoginPageLocators
 from locators.main_page_locators import MainPageLocators
 from pages.base_page import BasePage
@@ -14,8 +13,7 @@ class MainPage(BasePage):
     def go_to_login_page(self):
         with allure.step(f"Перейти на страницу входа"):
             self.wait_for_url(BASE_URL)
-            WebDriverWait(self.driver, 10).until(
-                EC.invisibility_of_element_located(MainPageLocators.MODAL_OVERLAY_LOCATOR))
+            self.element_is_not_visible(MainPageLocators.MODAL_OVERLAY_LOCATOR)
             self.wait_for_element(MainPageLocators.LOGIN_BUTTON)
             self.scroll_to_element(MainPageLocators.LOGIN_BUTTON)
             self.click_element(MainPageLocators.LOGIN_BUTTON)
@@ -23,12 +21,10 @@ class MainPage(BasePage):
     @allure.step("Переходим на страницу входа через кнопку Личный кабинет")
     def go_to_login_page_buttom_lk(self):
         self.wait_for_url(BASE_URL)
-        WebDriverWait(self.driver, 10).until(
-            EC.invisibility_of_element_located(MainPageLocators.MODAL_OVERLAY_LOCATOR))
+        self.element_is_not_visible(MainPageLocators.MODAL_OVERLAY_LOCATOR)
         self.wait_for_element(MainPageLocators.PERSONAL_ACCOUNT_BUTTON)
         self.click_element(MainPageLocators.PERSONAL_ACCOUNT_BUTTON)
-        WebDriverWait(self.driver, 10).until(
-            EC.invisibility_of_element_located(MainPageLocators.MODAL_OVERLAY_LOCATOR))
+        self.element_is_not_visible(MainPageLocators.MODAL_OVERLAY_LOCATOR)
         self.wait_for_element(LoginPageLocators.EMAIL_INPUT)
 
     @allure.step("Кликнуть на Конструктор")
@@ -39,8 +35,7 @@ class MainPage(BasePage):
     @allure.step("Кликнуть на Лента заказов")
     def click_order_feed(self):
         self.click_element(MainPageLocators.ORDER_FEED_BUTTON)
-        WebDriverWait(self.driver, 10).until(
-            EC.invisibility_of_element_located(MainPageLocators.MODAL_OVERLAY_LOCATOR))
+        self.element_is_not_visible(MainPageLocators.MODAL_OVERLAY_LOCATOR)
         self.wait_for_element(MainPageLocators.ORDER_FEED_SECTION)
 
     @allure.step("Перейти на Ленту заказов")

@@ -13,6 +13,7 @@ def driver(request):
     if request.param == "chrome":
         chrome_options = webdriver.ChromeOptions()
         chrome_options.add_argument('--window-size=1920,1080')
+        chrome_options.add_argument('--incognito')
         driver = webdriver.Chrome(options=chrome_options)
         driver.get(BASE_URL)
     elif request.param == "firefox":
@@ -33,4 +34,4 @@ def login(driver):
     password = AuthDate.PASSWORD
     login_page.user_authorization(email, password)
 
-    yield
+    return main_page
